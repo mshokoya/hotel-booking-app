@@ -67,7 +67,7 @@ export const Login = ({ setViewer }: Props) => {
   if (logInLoading) {
     return (
       <Content className='log-in'>
-        <Spin size='large' tip='logging you in' />
+        <Spin size='large' tip='logging you in...' />
       </Content>
     )
   }
