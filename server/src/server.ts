@@ -13,7 +13,7 @@ const mount = async (app: Application) => {
   qraphQlServer.applyMiddleware({app, path: '/api'});
 
   app.listen(port, () => {
-    console.log(`[app] http://localhost:${port}`);
+    console.log(`[app] http://localhost:${port}!`);
   });
 
 }
