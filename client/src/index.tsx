@@ -4,9 +4,9 @@ import {render} from 'react-dom';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
-import {Home, Host, Listing, NotFound, User, Login} from './sections';
+import {Home, Host, Listing, NotFound, User, Login, AppHeader} from './sections';
 import * as serviceWorker from './serviceWorker';
-import { Layout } from "antd";
+import { Layout, Affix } from "antd";
 import {Viewer} from './lib/types';
 
 const client = new ApolloClient({
@@ -28,6 +28,9 @@ const App = () => {
   return (
     <Router>
       <Layout id="app">
+        <Affix offsetTop={0} className='app__affix-header'>
+          <AppHeader viewer={viewer} setViewer={setViewer} />
+        </Affix>
         <Switch>
           <Route  exact path='/' component={Home}/>
           <Route  exact path='/host' component={Host}/>
