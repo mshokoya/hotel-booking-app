@@ -36,6 +36,11 @@ export const typeDefs = gql`
     numOfGuests: Int!
   }
 
+  enum ListingFilter {
+    PRICE_LOW_TO_HIGH
+    PRICE_HIGH_TO_LOW 
+  }
+
   type Listings {
     total: Int!
     result: [Listing!]!
@@ -64,6 +69,7 @@ export const typeDefs = gql`
     authUrl: String!
     user(id: ID!): User!
     listing(id: ID!): Listing!
+    listings(filter: ListingFilter!, limit: Int!, page: Int!): Listings!
   }
 
   input LogInInput {
