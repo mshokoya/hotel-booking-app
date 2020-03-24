@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/maps": "^1.1.0",
     "apollo-server-express": "^2.11.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.3",
+    "@types/google__maps": "^0.5.12",
     "@types/graphql": "^14.5.0",
     "@types/lodash.merge": "^4.6.6",
     "@types/mongodb": "^3.5.2",
