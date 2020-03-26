@@ -107,7 +107,7 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
 
   const listingsRegionElement = listingsRegion ? (
     <Title level={3} className="listings__title">
-      Results for l"{listingsRegion}"
+      Results for "{listingsRegion}"
     </Title>
   ) : null;
 
