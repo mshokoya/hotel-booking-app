@@ -20,7 +20,8 @@
     "googleapis": "^48.0.0",
     "graphql": "^14.6.0",
     "lodash.merge": "^4.6.2",
-    "mongodb": "^3.5.5"
+    "mongodb": "^3.5.5",
+    "stripe": "^8.37.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
@@ -30,6 +31,7 @@
     "@types/lodash.merge": "^4.6.6",
     "@types/mongodb": "^3.5.2",
     "@types/node": "^13.9.0",
+    "@types/stripe": "^7.13.22",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
     "dotenv-cli": "^3.1.0",
