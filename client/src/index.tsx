@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 // import {ApolloProvider} from 'react-apollo';
 import {ApolloProvider, useMutation} from '@apollo/react-hooks';
-import {Home, Host, Listing, NotFound, User, Login, AppHeader, Listings} from './sections';
+import {Home, Host, Listing, NotFound, User, Login, AppHeader, Listings, Stripe} from './sections';
 import * as serviceWorker from './serviceWorker';
 import { Layout, Affix, Spin } from "antd";
 import {AppHeaderSkeleton, ErrorBanner} from './lib/components';
@@ -82,13 +82,14 @@ const App = () => {
           <AppHeader viewer={viewer} setViewer={setViewer} />
         </Affix>
         <Switch>
-          <Route  exact path='/' component={Home}/>
-          <Route  exact path='/host' component={Host}/>
+          <Route exact path="/stripe" render={props => <Stripe {...props} viewer={viewer} setViewer={setViewer} />}/>
+          <Route exact path='/' component={Home}/>
+          <Route exact path='/host' component={Host}/>
           <Route exact path="/login" render={props => <Login {...props} setViewer={setViewer} />} />
-          <Route  exact path='/listing/:id' component={Listing}/>
-          <Route  exact path='/listings/:location?' component={Listings}/>
-          <Route  exact path='/user/:id' render={props => <User {...props} viewer={viewer} /> }/>
-          <Route  exact component={NotFound}/>
+          <Route exact path='/listing/:id' component={Listing}/>
+          <Route exact path='/listings/:location?' component={Listings}/>
+          <Route exact path='/user/:id' render={props => <User {...props} viewer={viewer} /> }/>
+          <Route exact component={NotFound}/>
         </Switch>
       </Layout>
     </Router>
