@@ -84,9 +84,14 @@ export const typeDefs = gql`
     code: String!
   }
 
+  input ConnectStripeInput {
+    code: String!
+  }
   
   type Mutation {
     logIn(input: LogInInput): Viewer!
     logOut: Viewer!
+    connectStripe(input: ConnectStripeInput): Viewer!
+    disconnectStripe: Viewer!
   }
 `

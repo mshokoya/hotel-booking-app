@@ -160,6 +160,12 @@ export const viewerResolvers: IResolvers = {
       } catch (error) {
         throw new Error(`Failed to log out: ${error}`);
       }
+    },
+    connectStripe: () => {
+      return {didRequest: true}
+    },
+    disconnectStripe: () => {
+      return {didRequest: true}
     }
   },
   Viewer: {
