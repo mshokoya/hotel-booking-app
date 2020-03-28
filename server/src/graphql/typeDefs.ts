@@ -87,11 +87,22 @@ export const typeDefs = gql`
   input ConnectStripeInput {
     code: String!
   }
+
+  input HostListingInput {
+    title: String!
+    description: String!
+    image: String!
+    type: ListingType!
+    adddress: String!
+    price: Int!
+    numOfGuests: Int!
+  }
   
   type Mutation {
     logIn(input: LogInInput): Viewer!
     logOut: Viewer!
     connectStripe(input: ConnectStripeInput): Viewer!
     disconnectStripe: Viewer!
+    hostListing(input: HostListingInput!): Listing!
   }
 `
