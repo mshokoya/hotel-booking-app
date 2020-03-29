@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Form,
+  Icon,
   Input,
   InputNumber,
   Layout,
@@ -9,37 +11,23 @@ import {
   Typography,
   Upload
 } from "antd";
+import { FormComponentProps } from "antd/lib/form";
 import { UploadChangeParam } from "antd/lib/upload";
-import {BankOutlined, HomeOutlined, LoadingOutlined, PlusOutlined} from '@ant-design/icons'
-import {Viewer} from '../../lib/types';
-import {Link} from 'react-router-dom';
 import { ListingType } from "../../lib/graphql/globalTypes";
-import {displayErrorMessage } from "../../lib/utils";
-
-const { Item } = Form;
-
-const {Content} = Layout;
-const {Text, Title} = Typography;
-
+import { iconColor, displayErrorMessage } from "../../lib/utils";
+import { Viewer } from "../../lib/types";
 
 interface Props {
   viewer: Viewer;
 }
 
-export const Host = ({viewer}: Props) => {
+const { Content } = Layout;
+const { Text, Title } = Typography;
+const { Item } = Form;
+
+export const Host = ({ viewer }: Props) => {
   const [imageLoading, setImageLoading] = useState(false);
   const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
-
-  const getBase64Value = (
-    img: File | Blob,
-    callback: (imageBase64Value: string) => void
-  ) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(img);
-    reader.onload = () => {
-      callback(reader.result as string);
-    };
-  };
 
   const handleImageUpload = (info: UploadChangeParam) => {
     const { file } = info;
@@ -55,25 +43,6 @@ export const Host = ({viewer}: Props) => {
         setImageLoading(false);
       });
     }
-  };
-
-  const beforeImageUpload = (file: File) => {
-    const fileIsValidImage = file.type === "image/jpeg" || file.type === "image/png";
-    const fileIsValidSize = file.size / 1024 / 1024 < 1;
-  
-    if (!fileIsValidImage) {
-      displayErrorMessage("You're only able to upload valid JPG or PNG files!");
-      return false;
-    }
-  
-    if (!fileIsValidSize) {
-      displayErrorMessage(
-        "You're only able to upload valid image files of under 1MB in size!"
-      );
-      return false;
-    }
-  
-    return fileIsValidImage && fileIsValidSize;
   };
 
   if (!viewer.id || !viewer.hasWallet) {
@@ -108,11 +77,11 @@ export const Host = ({viewer}: Props) => {
 
         <Item label="Home Type">
           <Radio.Group>
-            <Radio.Button>
-              <span>Apartment</span>
+            <Radio.Button value={ListingType.APARTMENT}>
+              <Icon type="bank" style={{ color: iconColor }} /> <span>Apartment</span>
             </Radio.Button>
-            <Radio.Button>
-              <span>House</span>
+            <Radio.Button value={ListingType.HOUSE}>
+              <Icon type="home" style={{ color: iconColor }} /> <span>House</span>
             </Radio.Button>
           </Radio.Group>
         </Item>
@@ -153,7 +122,7 @@ export const Host = ({viewer}: Props) => {
           extra="Images have to be under 1MB in size and of type JPG or PNG"
         >
           <div className="host__form-image-upload">
-          <Upload
+            <Upload
               name="image"
               listType="picture-card"
               showUploadList={false}
@@ -165,7 +134,7 @@ export const Host = ({viewer}: Props) => {
                 <img src={imageBase64Value} alt="Listing" />
               ) : (
                 <div>
-                  {imageLoading ? (<LoadingOutlined />) : (<PlusOutlined />)}
+                  <Icon type={imageLoading ? "loading" : "plus"} />
                   <div className="ant-upload-text">Upload</div>
                 </div>
               )}
@@ -176,7 +145,46 @@ export const Host = ({viewer}: Props) => {
         <Item label="Price" extra="All prices in $USD/day">
           <InputNumber min={0} placeholder="120" />
         </Item>
+
+        <Item>
+          <Button type="primary">Submit</Button>
+        </Item>
       </Form>
     </Content>
   );
+};
+
+export const WrappedHost = Form.create<Props & FormComponentProps>({
+  name: "host_form"
+})(Host);
+
+
+const beforeImageUpload = (file: File) => {
+  const fileIsValidImage = file.type === "image/jpeg" || file.type === "image/png";
+  const fileIsValidSize = file.size / 1024 / 1024 < 1;
+
+  if (!fileIsValidImage) {
+    displayErrorMessage("You're only able to upload valid JPG or PNG files!");
+    return false;
+  }
+
+  if (!fileIsValidSize) {
+    displayErrorMessage(
+      "You're only able to upload valid image files of under 1MB in size!"
+    );
+    return false;
+  }
+
+  return fileIsValidImage && fileIsValidSize;
+};
+
+const getBase64Value = (
+  img: File | Blob,
+  callback: (imageBase64Value: string) => void
+) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(img);
+  reader.onload = () => {
+    callback(reader.result as string);
+  };
 };
