@@ -93,7 +93,7 @@ export const typeDefs = gql`
     description: String!
     image: String!
     type: ListingType!
-    adddress: String!
+    address: String!
     price: Int!
     numOfGuests: Int!
   }

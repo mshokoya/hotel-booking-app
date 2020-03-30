@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 // import {ApolloProvider} from 'react-apollo';
 import {ApolloProvider, useMutation} from '@apollo/react-hooks';
-import {Home, Host, Listing, NotFound, User, Login, AppHeader, Listings, Stripe} from './sections';
+import {Home, WrappedHost as Host, Listing, NotFound, User, Login, AppHeader, Listings, Stripe} from './sections';
 import * as serviceWorker from './serviceWorker';
 import { Layout, Affix, Spin } from "antd";
 import {AppHeaderSkeleton, ErrorBanner} from './lib/components';

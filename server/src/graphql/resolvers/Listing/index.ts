@@ -117,6 +117,7 @@ export const listingResolvers: IResolvers = {
       {input}: HostListingArgs,
       {db, req}: {db: Database, req: Request}
     ): Promise<Listing> => {
+
       verifyListingInput(input);
 
       let viewer = await authorize(db, req);
@@ -126,6 +127,7 @@ export const listingResolvers: IResolvers = {
 
       const {country, admin, city} = await Google.geocode(input.address);
       if (!country || !admin || !city) {
+        console.log('loc')
         throw new Error('invalid address input');
       }
 

@@ -26,7 +26,7 @@ export interface HostListingInput {
   description: string;
   image: string;
   type: ListingType;
-  adddress: string;
+  address: string;
   price: number;
   numOfGuests: number;
 }

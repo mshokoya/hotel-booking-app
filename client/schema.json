@@ -1222,7 +1222,7 @@
             "defaultValue": null
           },
           {
-            "name": "adddress",
+            "name": "address",
             "description": null,
             "type": {
               "kind": "NON_NULL",
