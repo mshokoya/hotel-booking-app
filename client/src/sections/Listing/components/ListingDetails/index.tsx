@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Avatar, Divider, Tag, Typography } from "antd";
+import { Avatar, Divider, Tag, Typography, Icon } from "antd";
 import { Listing as ListingData } from "../../../../lib/graphql/queries/Listing/__generated__/Listing";
 import { iconColor } from "../../../../lib/utils";
 
@@ -23,7 +23,7 @@ export const ListingDetails = ({ listing }: Props) => {
       <div className="listing-details__information">
         <Paragraph type="secondary" ellipsis className="listing-details__city-address">
           <Link to={`/listings/${city}`}>
-            {/* <Icon type="environment" style={{ color: iconColor }} />  */}
+            <Icon type="environment" style={{ color: iconColor }} /> 
             {city}
           </Link>
           <Divider type="vertical" />
