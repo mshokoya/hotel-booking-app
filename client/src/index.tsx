@@ -5,7 +5,17 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 // import {ApolloProvider} from 'react-apollo';
 import {ApolloProvider, useMutation} from '@apollo/react-hooks';
-import {Home, WrappedHost as Host, Listing, NotFound, User, Login, AppHeader, Listings, Stripe} from './sections';
+import {
+  Home, 
+  WrappedHost as Host, 
+  Listing, 
+  NotFound, 
+  User, 
+  Login, 
+  AppHeader, 
+  Listings, 
+  Stripe
+} from './sections';
 import * as serviceWorker from './serviceWorker';
 import { Layout, Affix, Spin } from "antd";
 import {AppHeaderSkeleton, ErrorBanner} from './lib/components';
@@ -15,6 +25,7 @@ import {
   LogIn as LogInData,
   LogInVariables
 } from './lib/graphql/mutations/LogIn/__generated__/LogIn';
+import { StripeProvider, Elements } from "react-stripe-elements";
 
 
 const client = new ApolloClient({
@@ -75,6 +86,7 @@ const App = () => {
   ) : null;
 
   return (
+    <StripeProvider apiKey={process.env.REACT_APP_S_PUBLISH_KEY as string}>
     <Router>
       <Layout id="app">
         {logInErrorBannerElement}
@@ -86,7 +98,7 @@ const App = () => {
           <Route exact path='/' component={Home}/>
           <Route exact path="/host" render={props => <Host {...props} viewer={viewer} />} />
           <Route exact path="/login" render={props => <Login {...props} setViewer={setViewer} />} />
-          <Route exact path='/listing/:id' render={props => <Listing {...props} viewer={viewer}/>}/>
+          <Route exact path='/listing/:id' render={props => <Elements><Listing {...props} viewer={viewer}/></Elements>}/>
           <Route exact path='/listings/:location?' component={Listings}/>
           <Route
             exact
@@ -97,6 +109,7 @@ const App = () => {
         </Switch>
       </Layout>
     </Router>
+    </StripeProvider>
   )
 }
 

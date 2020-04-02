@@ -20,8 +20,10 @@ export const Stripe = {
       source,
       application_fee_amount: Math.round(amount * 0.05)
     }, {
-      stripe_account: stripeAccount
+      stripeAccount
     });
+
+    console.log('did not work')
 
     if (res.status !== "succeeded") {
       throw new Error("failed to create charge with Stripe");

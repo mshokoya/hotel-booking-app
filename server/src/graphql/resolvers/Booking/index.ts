@@ -110,6 +110,8 @@ export const bookingResolvers: IResolvers = {
           _id: listing.host
         });
 
+        
+
         if (!host || !host.walletId) {
           throw new Error(
             "the host either can't be found or is not connected with Stripe"
