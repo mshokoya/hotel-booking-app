@@ -23,7 +23,8 @@ export const Home = ({ history }: RouteComponentProps) => {
       filter: 'PRICE_HIGH_TO_LOW',
       limit: PAGE_LIMIT,
       page: PAGE_NUMBER
-    }
+    },
+    fetchPolicy: "cache-and-network"
   });
 
   const onSearch = (value: string) => {
