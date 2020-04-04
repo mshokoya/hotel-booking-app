@@ -10,6 +10,7 @@ import {
 } from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
 import { ListingsFilters, ListingsPagination, ListingsSkeleton} from "./components";
+import { useScrollToTop } from "../../lib/hooks";
 
 interface MatchParams {
   location: string;
@@ -21,6 +22,7 @@ const { Paragraph, Text, Title } = Typography;
 const PAGE_LIMIT = 8;
 
 export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
+  useScrollToTop();
   const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
   const [page, setPage] = useState(1);
   const locationRef = useRef(match.params.location);

@@ -6,28 +6,7 @@ import {authorize} from '../../../lib/utils';
 import { ObjectId } from "mongodb";
 import { Stripe } from "../../../lib/api";
 
-const bookingsIndex = {
-  "2019": {
-    "00": {
-      "01": true,
-      "02": true
-    },
-    "04": {
-      "31": true
-    },
-    "05": {
-      "01": true
-    },
-    "06": {
-      "20": true
-    },
-    "11": {
-      "01": true,
-      "02": true,
-      "03": true
-    }
-  }
-};
+const millisecondsPerDay = 86400000;
 
 const resolveBookingsIndex = (
   bookingsIndex: BookingsIndex,
@@ -89,8 +68,17 @@ export const bookingResolvers: IResolvers = {
           throw new Error("viewer can't book own listing");
         }
 
+        const today = new Date();
         const checkInDate = new Date(checkIn);
         const checkOutDate = new Date(checkOut);
+
+        if (checkInDate.getTime() > today.getTime() + 90 * millisecondsPerDay) {
+          throw new Error("check in date can't be more than 90 days from today");
+        }
+
+        if (checkOutDate.getTime() > today.getTime() + 90 * millisecondsPerDay) {
+          throw new Error("check out date can't be more than 90 days from today");
+        }
 
         if (checkOutDate < checkInDate) {
           throw new Error("check out date can't be before check in date");

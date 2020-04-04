@@ -10,7 +10,7 @@ import {
 import { ErrorBanner, PageSkeleton } from "../../lib/components";
 import { Viewer } from "../../lib/types";
 import { UserBookings, UserListings, UserProfile } from "./components";
-
+import { useScrollToTop } from "../../lib/hooks";
 
 interface Props {
   viewer: Viewer;
@@ -29,6 +29,7 @@ export const User = ({
   setViewer,
   match
 }: Props & RouteComponentProps<MatchParams>) => {
+  useScrollToTop();
   const [listingsPage, setListingsPage] = useState(1);
   const [bookingsPage, setBookingsPage] = useState(1);
 

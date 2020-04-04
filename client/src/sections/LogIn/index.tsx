@@ -12,6 +12,7 @@ import {
 import { AuthUrl as AuthUrlData } from "../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl";
 import { displaySuccessNotification, displayErrorMessage } from "../../lib/utils";
 import { Viewer } from "../../lib/types";
+import { useScrollToTop } from "../../lib/hooks";
 
 // Image Assets
 import googleLogo from "./assets/google_logo.jpg";
@@ -24,6 +25,7 @@ const { Content } = Layout;
 const { Text, Title } = Typography;
 
 export const Login = ({ setViewer }: Props) => {
+  useScrollToTop();
   const client = useApolloClient();
   const [
     logIn,

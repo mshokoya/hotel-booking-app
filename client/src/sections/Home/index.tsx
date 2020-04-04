@@ -5,7 +5,7 @@ import { Col, Row, Layout, Typography } from "antd";
 import { displayErrorMessage } from "../../lib/utils";
 import { HomeHero, HomeListings, HomeListingsSkeleton } from "./components";
 import { LISTINGS } from "../../lib/graphql/queries";
-
+import { useScrollToTop } from "../../lib/hooks";
 
 import mapBackground from "./assets/map-background.jpg";
 import sanFransiscoImage from "./assets/san-fransisco.jpg";
@@ -18,6 +18,7 @@ const PAGE_LIMIT: number = 4;
 const PAGE_NUMBER: number = 1;
 
 export const Home = ({ history }: RouteComponentProps) => {
+  useScrollToTop();
   const {data, loading} = useQuery(LISTINGS, {
     variables: {
       filter: 'PRICE_HIGH_TO_LOW',
