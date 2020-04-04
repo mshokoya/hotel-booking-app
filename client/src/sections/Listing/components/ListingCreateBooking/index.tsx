@@ -125,6 +125,27 @@ export const ListingCreateBooking = ({
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check In</Paragraph>
             <DatePicker
+              value={checkInDate ? checkInDate : undefined}
+              format={"YYYY/MM/DD"}
+              showToday={false}
+              disabled={checkInInputDisabled}
+              disabledDate={disabledDate}
+              onChange={dateValue => setCheckInDate(dateValue)}
+              onOpenChange={() => setCheckOutDate(null)}
+              renderExtraFooter={() => {
+                return (
+                  <div>
+                    <Text type="secondary" className="ant-calendar-footer-text">
+                      You can only book a listing within 90 days from today.
+                    </Text>
+                  </div>
+                );
+              }}
+            />
+          </div>
+          <div className="listing-booking__card-date-picker">
+            <Paragraph strong>Check Out</Paragraph>
+            <DatePicker
               value={checkOutDate ? checkOutDate : undefined}
               format={"YYYY/MM/DD"}
               showToday={false}
@@ -155,17 +176,6 @@ export const ListingCreateBooking = ({
                   </div>
                 );
               }}
-            />
-          </div>
-          <div className="listing-booking__card-date-picker">
-            <Paragraph strong>Check Out</Paragraph>
-            <DatePicker
-              value={checkOutDate ? checkOutDate : undefined}
-              format={"YYYY/MM/DD"}
-              showToday={false}
-              disabled={checkOutInputDisabled}
-              disabledDate={disabledDate}
-              onChange={dateValue => verifyAndSetCheckOutDate(dateValue)}
             />
           </div>
         </div>
