@@ -211,22 +211,26 @@ export const viewerResolvers: IResolvers = {
     ) => {
       try {
         let viewer = await authorize(db, req);
-        if (!viewer) {
-          throw new Error('viewer cannot be found')
+        if (!viewer || !viewer.walletId) {
+          throw new Error("viewer cannot be found or has not connected with Stripe");
         }
 
-        const updatedRes = await db.users.findOneAndUpdate(
-          {_id: viewer._id},
-          // it is suppose to be null NOT undefined
-          {$set: {walletId: undefined}},
-          {returnOriginal: false}
+        const wallet = await Stripe.disconnect(viewer.walletId);
+        if (!wallet) {
+          throw new Error("stripe disconnect error");
+        }
+
+        const updateRes = await db.users.findOneAndUpdate(
+          { _id: viewer._id },
+          { $set: { walletId: undefined } },
+          { returnOriginal: false }
         );
 
-        if (!updatedRes.value) {
-          throw new Error('viewer could not be updated')
+        if (!updateRes.value) {
+          throw new Error("viewer could not be updated");
         }
 
-        viewer = updatedRes.value;
+        viewer = updateRes.value;
 
         return {
           _id: viewer._id,
@@ -234,10 +238,9 @@ export const viewerResolvers: IResolvers = {
           avatar: viewer.avatar,
           walletId: viewer.walletId,
           didRequest: true
-        }
-
+        };
       } catch (error) {
-        throw new Error(`failed to disconnect with Stripe: ${error}`);
+        throw new Error(`Failed to disconnect with Stripe: ${error}`);
       }
     }
   },
