@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "dotenv -e .env nodemon src/server.ts",
-    "build": "dotenv -e .env tsc -p ./",
-    "build:prod": "tsc -p ./src",
+    "start": "dotenv -e .env nodemon src/index.ts",
+    "build": "tsc -p ./",
     "seed": "dotenv -e .env ts-node temp/seed.ts",
     "clear": "dotenv -e .env ts-node temp/clear.ts"
   },
